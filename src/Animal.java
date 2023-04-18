@@ -11,7 +11,7 @@ public abstract class Animal {
         this.raca = raca;
     }
 
-    public abstract void locomover();
+    public abstract void andar();
 
     public abstract void alimentar();
 
