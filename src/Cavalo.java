@@ -1,6 +1,7 @@
 public class Cavalo extends Mamifero{
     public Cavalo(String dono, String nome, String especie, String raca, String corPelo) {
         super(dono, nome, especie, raca, corPelo);
+
     }
 
     @Override
@@ -25,5 +26,15 @@ public class Cavalo extends Mamifero{
     public void cuidadosProprios() {
         super.cuidadosProprios();
         System.out.println("Cuidando dos cascos do cavalo.");
+    }
+
+    @Override
+    public String toString() {
+        return "Cavalo{" +
+                "dono='" + dono + '\'' +
+                ", nome='" + nome + '\'' +
+                ", especie='" + especie + '\'' +
+                ", raca='" + raca + '\'' +
+                '}';
     }
 }

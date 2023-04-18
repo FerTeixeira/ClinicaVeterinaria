@@ -25,4 +25,14 @@ public class Papagaio extends Ave {
         super.cuidadosProprios();
         System.out.println("Interagindo contando piada.");
     }
+
+    @Override
+    public String toString() {
+        return "Papagaio{" +
+                "dono='" + dono + '\'' +
+                ", nome='" + nome + '\'' +
+                ", especie='" + especie + '\'' +
+                ", raca='" + raca + '\'' +
+                '}';
+    }
 }

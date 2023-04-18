@@ -5,6 +5,7 @@ public class Cachorro extends Mamifero{
         super(dono, nome, especie, raca, corPelo);
     }
 
+
     @Override
     public void locomover() {
         super.locomover();
@@ -27,5 +28,15 @@ public class Cachorro extends Mamifero{
     public void cuidadosProprios() {
         super.cuidadosProprios();
         System.out.println("Recebeu banho e tosa.");
+    }
+
+    @Override
+    public String toString() {
+        return "Cachorro{" +
+                "dono='" + dono + '\'' +
+                ", nome='" + nome + '\'' +
+                ", especie='" + especie + '\'' +
+                ", raca='" + raca + '\'' +
+                '}';
     }
 }

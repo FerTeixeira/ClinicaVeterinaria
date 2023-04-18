@@ -1,20 +1,19 @@
 public abstract class Mamifero extends Animal {
-    private String CorPelo;
+    private String corPelo;
 
     public Mamifero(String dono, String nome, String especie, String raca, String corPelo) {
         super(dono, nome, especie, raca);
-        CorPelo = corPelo;
+        this.corPelo = corPelo;
     }
 
+
     public String getCorPelo() {
-        return CorPelo;
+        return corPelo;
     }
 
     public void setCorPelo(String corPelo) {
-        CorPelo = corPelo;
+        this.corPelo = corPelo;
     }
-
-
 
     @Override
     public void locomover() {

@@ -24,4 +24,14 @@ public class Calopsita extends Ave{
         super.cuidadosProprios();
         System.out.println("Esta na gaiola cantando");
     }
+
+    @Override
+    public String toString() {
+        return "Calopsita{" +
+                "dono='" + dono + '\'' +
+                ", nome='" + nome + '\'' +
+                ", especie='" + especie + '\'' +
+                ", raca='" + raca + '\'' +
+                '}';
+    }
 }
