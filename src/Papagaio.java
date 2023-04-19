@@ -20,6 +20,7 @@ public class Papagaio extends Ave {
         System.out.println("Sou um papagaio que conta piadas");
 
     }
+
     @Override
     public void cuidadosProprios() {
         super.cuidadosProprios();
@@ -28,12 +29,11 @@ public class Papagaio extends Ave {
 
     @Override
     public String toString() {
-        return "Papagaio{" +
-                "dono='" + dono + '\'' +
-                ", nome='" + nome + '\'' +
-                ", especie='" + especie + '\'' +
-                ", raca='" + raca + '\'' +
-                ", cor das penas='" + getCorPena() + '\'' +
-                '}';
+        return "\n---- Papagaio -----" +
+                "\ndono -> " + dono +
+                "\nnome -> " + nome +
+                "\nespecie -> " + especie +
+                "\nraça -> " + raca +
+                "\ncor das penas -> " + corPena;
     }
 }

@@ -1,5 +1,5 @@
 public abstract class Ave extends Animal {
-    private String corPena;
+    protected String corPena;
 
     public Ave(String dono, String nome, String especie, String raca, String corPena) {
         super(dono, nome, especie, raca);

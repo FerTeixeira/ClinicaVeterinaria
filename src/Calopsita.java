@@ -1,7 +1,8 @@
-public class Calopsita extends Ave{
+public class Calopsita extends Ave {
     public Calopsita(String dono, String nome, String especie, String raca, String corPena) {
         super(dono, nome, especie, raca, corPena);
     }
+
     @Override
     public void locomover() {
         System.out.println("Voando");
@@ -19,6 +20,7 @@ public class Calopsita extends Ave{
         System.out.println("Piando");
 
     }
+
     @Override
     public void cuidadosProprios() {
         super.cuidadosProprios();
@@ -27,12 +29,11 @@ public class Calopsita extends Ave{
 
     @Override
     public String toString() {
-        return "Calopsita{" +
-                "dono='" + dono + '\'' +
-                ", nome='" + nome + '\'' +
-                ", especie='" + especie + '\'' +
-                ", raca='" + raca + '\'' +
-                ", cor das penas='" + getCorPena() + '\'' +
-                '}';
+        return "\n---- Calopsita -----" +
+                "\ndono -> " + dono +
+                "\nnome -> " + nome +
+                "\nespecie -> " + especie +
+                "\nraça -> " + raca +
+                "\ncor das penas -> " + corPena;
     }
 }

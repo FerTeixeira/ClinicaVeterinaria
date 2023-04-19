@@ -1,4 +1,4 @@
-public class Cachorro extends Mamifero{
+public class Cachorro extends Mamifero {
 
 
     public Cachorro(String dono, String nome, String especie, String raca, String corPelo) {
@@ -32,12 +32,11 @@ public class Cachorro extends Mamifero{
 
     @Override
     public String toString() {
-        return "Cachorro{" +
-                "dono='" + dono + '\'' +
-                ", nome='" + nome + '\'' +
-                ", especie='" + especie + '\'' +
-                ", raca='" + raca + '\'' +
-                ", cor do pelo='" + getCorPelo() + '\'' +
-                '}';
+        return "\n---- Cachorro -----" +
+                "\ndono -> " + dono +
+                "\nnome -> " + nome +
+                "\nespecie -> " + especie +
+                "\nraça -> " + raca +
+                "\ncor do pelo -> " + corPelo;
     }
 }

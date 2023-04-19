@@ -1,53 +1,318 @@
+import javax.swing.*;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
 
-    private ArrayList<Mamifero> mamiferos  = new ArrayList<Mamifero>();
-    private ArrayList<Ave> aves = new ArrayList<Ave>();
-    private ArrayList<Animal> animais ;
+    private ArrayList<Animal> animais;
+
     public Main() {
-        this.animais= new ArrayList<Animal>();
+        this.animais = new ArrayList<Animal>();
     }
-    public void adicionarAnimais(Animal pet){
+
+    /**
+     * Adiciona um animal na lista
+     *
+     * @param pet Animal a ser adicionado.
+     */
+    public void adicionarAnimais(Animal pet) {
         this.animais.add(pet);
     }
-    public void listarAnimais(){
-        for(Animal pet:animais){
-            System.out.println(pet.toString());
-        }
-        System.out.println("Total = " + this.animais.size() + " animais listados com sucesso!\n" );
-    }
-    public void excluirAnimal(Animal pet){
-        if (this.animais.contains(pet)) {
-            this.animais.remove(pet);
-            System.out.println("Animal " + pet.toString() + " excluido com sucesso!\n");
-        }else {
-            System.out.println("Animal inexistente!\n");
+
+    /**
+     * Pega todos os animais cadastrados e retorna em String.
+     *
+     * @return String contendo a lista de animais cadastrados.
+     */
+    public StringBuilder listarAnimais() {
+        StringBuilder dados = new StringBuilder(); // variavel para armazenar os animais cadastrados
+
+        // faz um loop nos animais e adiciona na variavel de exibição
+        for (Animal animal : animais) {
+            dados.append(animal.toString());
         }
 
+        return dados;
     }
-    public void limparLista(){
+
+    /**
+     * Exclui um animal específico da lista
+     *
+     * @param pet Animal a ser excluído
+     */
+    public void excluirAnimal(Animal pet) {
+        this.animais.remove(pet);
+    }
+
+    /**
+     * Exclui todos os animais cadastrados
+     */
+    public void limparLista() {
         animais.clear();
-        System.out.println("Animais excluidos com sucesso!");
     }
+
+    /**
+     * Pega todos os animais cadastrados
+     *
+     * @return ArrayList de Animal
+     */
+    public ArrayList<Animal> pegarTodosAnimais() {
+        return new ArrayList<>(animais);
+    }
+
+    /**
+     * Faz a verificação se o valor recebido é um inteiro válido
+     *
+     * @param valor Valor informado pelo usuário
+     */
+    public boolean isValidInt(String valor) {
+        try {
+            Integer.parseInt(valor); // se conseguir converter para Inteiro então é válido
+            return true;
+        } catch (Exception ex) {
+            return false;
+        }
+    }
+
+    /**
+     * Loop até o usuário informar um inteiro válido
+     *
+     * @param valor Valor informado pelo usuário
+     */
+    public int retornaInteiro(String valor) {
+
+        while (!isValidInt(valor)) {
+            valor = JOptionPane.showInputDialog("Valor informado inválido!" +
+                    "\nInsira uma opção:");
+        }
+
+        return Integer.parseInt(valor);
+    }
+
+    /**
+     * Exibição do menu e entrada de dados do usuário
+     */
+    public void listarMenu() {
+
+        String dono;
+        String nome;
+        String especie;
+        String raca;
+        String corAnimal;
+
+        String menu; // Menu que será exibido na interface
+        String entrada; // Variavel que armazenará o valor informado pelo usuário
+        int opc1, opc2, opc3; // opc1 = Primeira decisão | opc2 = Decisão secundária (tipo do animal) | opc3 = Nome do animal
+
+        do {
+            menu = """
+                            CLINICA VETERINÁRIA     
+                                        
+                    Selecione uma opção:
+                                        
+                    1 - Adicionar um animal
+                    2 - Listar Animais
+                    3 - excluir Animal
+                    4 - Limpar lista
+                    9 - Finalizar
+
+                    
+                    """;
+
+            entrada = JOptionPane.showInputDialog(menu + "\n");
+            opc1 = this.retornaInteiro(entrada);
+
+            switch (opc1) {
+
+                // adicionar
+                case 1:
+                    menu = """
+                            Qual espécie deseja adicionar:
+                                                        
+                            1. Mamífero
+                            2. Ave
+                                                                                    
+                            
+                            """;
+
+                    entrada = JOptionPane.showInputDialog(menu);
+                    opc2 = retornaInteiro(entrada);
+
+                    // Decisão da espécie
+                    switch (opc2) {
+
+                        // Mamífero
+                        case 1:
+                            menu = """
+                                    Qual mamífero deseja adicionar?
+                                                                        
+                                    1. Cachorro
+                                    2. Cavalo
+                                                                        
+                                    
+                                    """;
+                            entrada = JOptionPane.showInputDialog(menu + "\n");
+                            opc3 = retornaInteiro(entrada);
+
+                            // Decisão do mamífero
+                            switch (opc3) {
+
+                                // cachorro
+                                case 1:
+                                    dono = JOptionPane.showInputDialog("Insira o nome do dono do cachorro:\n");
+                                    nome = JOptionPane.showInputDialog("Insira um nome para do cachorro:\n");
+                                    especie = "mamífero";
+                                    raca = JOptionPane.showInputDialog("Insira a raça do " + nome + ":\n");
+                                    corAnimal = JOptionPane.showInputDialog("Informe a cor do pelo do " + nome + ":\n");
+
+                                    Cachorro cachorro = new Cachorro(dono, nome, especie, raca, corAnimal); // instância o objeto Cachorro
+
+                                    adicionarAnimais(cachorro); // adiciona
+
+                                    JOptionPane.showMessageDialog(null, "Cachorro inserido com sucesso!");
+                                    break;
+                                // cavalo
+                                case 2:
+                                    dono = JOptionPane.showInputDialog("Insira o nome do dono do cavalo:\n");
+                                    nome = JOptionPane.showInputDialog("Insira um nome para o cavalo:\n");
+                                    especie = "mamífero";
+                                    raca = JOptionPane.showInputDialog("Insira a raça do " + nome + ":\n");
+                                    corAnimal = JOptionPane.showInputDialog("Informe a cor do pelo do " + nome + ":\n");
+
+                                    Cavalo cavalo = new Cavalo(dono, nome, especie, raca, corAnimal); // instância o objeto Cachorro
+
+                                    adicionarAnimais(cavalo); // adiciona
+
+                                    JOptionPane.showMessageDialog(null, "Cavalo inserido com sucesso!");
+                                    break;
+                                default:
+                                    JOptionPane.showMessageDialog(null, "Opção inválida!");
+                            }
+                            break;
+
+                        // Ave
+                        case 2:
+                            menu = """
+                                    Qual ave deseja adicionar?
+                                                                        
+                                    1. Calopsita
+                                    2. Papagaio
+                                                                        
+                                    
+                                    """;
+                            entrada = JOptionPane.showInputDialog(menu + "\n");
+                            opc3 = retornaInteiro(entrada);
+
+                            // Decisão da ave
+                            switch (opc3) {
+
+                                // calopsita
+                                case 1:
+                                    dono = JOptionPane.showInputDialog("Insira o nome do dono da Calopsita:\n");
+                                    nome = JOptionPane.showInputDialog("Insira um nome para a Calopsita:\n");
+                                    especie = "ave";
+                                    raca = JOptionPane.showInputDialog("Insira a raça da " + nome + ":\n");
+                                    corAnimal = JOptionPane.showInputDialog("Informe a cor das penas da " + nome + ":\n");
+
+                                    Calopsita calopsita = new Calopsita(dono, nome, especie, raca, corAnimal); // instância o objeto Cachorro
+
+                                    adicionarAnimais(calopsita); // adiciona
+
+                                    JOptionPane.showMessageDialog(null, "Calopsita inserida com sucesso!");
+                                    break;
+
+                                // papagaio
+                                case 2:
+                                    dono = JOptionPane.showInputDialog("Insira o nome do dono do Papagaio:\n");
+                                    nome = JOptionPane.showInputDialog("Insira um nome para o Papagaio:\n");
+                                    especie = "ave";
+                                    raca = JOptionPane.showInputDialog("Insira a raça do " + nome + ":\n");
+                                    corAnimal = JOptionPane.showInputDialog("Informe a cor das penas do " + nome + ":\n");
+
+                                    Papagaio papagaio = new Papagaio(dono, nome, especie, raca, corAnimal); // instância o objeto Cachorro
+
+                                    adicionarAnimais(papagaio); // adiciona
+
+                                    JOptionPane.showMessageDialog(null, "Papagaio inserido com sucesso!");
+                                    break;
+                                default:
+                                    JOptionPane.showMessageDialog(null, "Opção inválida!");
+                            }
+                            break;
+                        default:
+                            JOptionPane.showMessageDialog(null, "Opção inválida!");
+                    }
+                    break;
+                // listar
+                case 2:
+                    // se não tiver animais cadastrados
+                    if (animais.size() == 0) {
+                        JOptionPane.showMessageDialog(null, "Nenhum animal a ser listado!");
+                        break;
+                    }
+
+                    JOptionPane.showMessageDialog(null, "---- Animais cadastrados ----\n" +
+                            listarAnimais());
+
+                    break;
+                // excluir
+                case 3:
+                    if (animais.size() == 0) {
+                        JOptionPane.showMessageDialog(null, "Nenhum animal cadastrado!");
+                        break;
+                    }
+
+                    String listaAnimais = "";
+                    ArrayList<Animal> todos = pegarTodosAnimais();
+
+                    menu = """
+                            Selecione o animal que será excluido:
+                                                        
+                            """;
+
+                    for (int i = 0; i < todos.size(); i++) {
+                        listaAnimais += (i + 1) + " - " + animais.get(i).getRaca() + " | " + animais.get(i).getNome() + "\n";
+                    }
+
+                    entrada = JOptionPane.showInputDialog(menu + listaAnimais + "\n");
+
+                    opc2 = retornaInteiro(entrada);
+
+                    if (animais.indexOf(opc2 - 1) == -1) {
+                        JOptionPane.showMessageDialog(null, "O número informado é inválido!\nRefaça o processo!");
+                        break;
+                    }
+
+                    excluirAnimal(animais.get(opc2 - 1));
+
+                    JOptionPane.showMessageDialog(null, "Animal excluído com sucesso!");
+                    break;
+
+                // limpar
+                case 4:
+                    if (animais.size() == 0) {
+                        JOptionPane.showMessageDialog(null, "Nenhum animal cadastrado!");
+                        break;
+                    }
+
+                    limparLista();
+                    JOptionPane.showMessageDialog(null, "Lista limpa com sucesso!");
+                    break;
+                case 9:
+                    JOptionPane.showMessageDialog(null, "FIM DO APP");
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(null, "Opção inválida!");
+            }
+        } while (opc1 != 9);
+
+    }
+
     public static void main(String[] args) {
         Main pet = new Main();
 
-        Cachorro c1 = new Cachorro("Fernanda","Akira", "Cachorro", "Labrador", "Caramelo");
-        Cavalo cv1 = new Cavalo("Nathan", "Pé de pano", "Cavalo", "Campeiro", "Preto");
-        Papagaio p1 = new Papagaio("Flávia", "Catarina", "Ave", "Papagaio", "Verde");
-        Calopsita cl1 = new Calopsita("Vitoria", "Gina","Ave", "Calopsita", "Branca");
-
-        pet.adicionarAnimais(c1);
-        pet.adicionarAnimais(cv1);
-        pet.adicionarAnimais(p1);
-        pet.adicionarAnimais(cl1);
-        pet.listarAnimais();
-        pet.excluirAnimal(c1);
-        pet.limparLista();
-        pet.listarAnimais();
-
-
+        pet.listarMenu();
 
     }
 }

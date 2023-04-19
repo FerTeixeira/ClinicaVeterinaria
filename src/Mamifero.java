@@ -1,5 +1,5 @@
 public abstract class Mamifero extends Animal {
-    private String corPelo;
+    protected String corPelo;
 
     public Mamifero(String dono, String nome, String especie, String raca, String corPelo) {
         super(dono, nome, especie, raca);
