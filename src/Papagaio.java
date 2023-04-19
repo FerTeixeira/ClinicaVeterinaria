@@ -33,6 +33,7 @@ public class Papagaio extends Ave {
                 ", nome='" + nome + '\'' +
                 ", especie='" + especie + '\'' +
                 ", raca='" + raca + '\'' +
+                ", cor das penas='" + getCorPena() + '\'' +
                 '}';
     }
 }

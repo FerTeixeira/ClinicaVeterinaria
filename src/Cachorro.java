@@ -37,6 +37,7 @@ public class Cachorro extends Mamifero{
                 ", nome='" + nome + '\'' +
                 ", especie='" + especie + '\'' +
                 ", raca='" + raca + '\'' +
+                ", cor do pelo='" + getCorPelo() + '\'' +
                 '}';
     }
 }
