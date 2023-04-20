@@ -1,9 +1,9 @@
 public interface Pet {
-    public void locomover();
+    void locomover();
 
-    public void alimentar();
+    void alimentar();
 
-    public void emitirSom();
+    void emitirSom();
 
-    public void cuidadosProprios();
+    void cuidadosProprios();
 }

@@ -1,4 +1,4 @@
-public abstract class Animal {
+public abstract class Animal implements Pet  {
     protected String dono;
     protected String nome;
     protected String especie;
