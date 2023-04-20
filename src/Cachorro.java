@@ -1,4 +1,4 @@
-public class Cachorro extends Mamifero {
+public class Cachorro extends Mamifero implements Pet{
 
 
     public Cachorro(String dono, String nome, String especie, String raca, String corPelo) {
@@ -6,27 +6,27 @@ public class Cachorro extends Mamifero {
     }
 
 
-    @Override
+
     public void locomover() {
-        super.locomover();
+
         System.out.println("Está correndo.");
     }
 
-    @Override
+
     public void alimentar() {
-        super.alimentar();
+
         System.out.println("Come ração para cachorro.");
     }
 
-    @Override
+
     public void emitirSom() {
-        super.emitirSom();
+
         System.out.println("Está latindo.");
     }
 
-    @Override
+
     public void cuidadosProprios() {
-        super.cuidadosProprios();
+
         System.out.println("Recebeu banho e tosa.");
     }
 

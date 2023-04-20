@@ -11,14 +11,6 @@ public abstract class Animal {
         this.raca = raca;
     }
 
-    public abstract void locomover();
-
-    public abstract void alimentar();
-
-    public abstract void emitirSom();
-
-    public abstract void cuidadosProprios();
-
     public String getDono() {
         return dono;
     }

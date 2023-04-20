@@ -1,5 +1,5 @@
 public abstract class Ave extends Animal {
-    protected String corPena;
+    private String corPena;
 
     public Ave(String dono, String nome, String especie, String raca, String corPena) {
         super(dono, nome, especie, raca);
@@ -14,23 +14,4 @@ public abstract class Ave extends Animal {
         this.corPena = corPena;
     }
 
-    @Override
-    public void locomover() {
-
-    }
-
-    @Override
-    public void alimentar() {
-
-    }
-
-    @Override
-    public void emitirSom() {
-
-    }
-
-    @Override
-    public void cuidadosProprios() {
-
-    }
 }
