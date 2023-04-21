@@ -1,4 +1,7 @@
 public final class Calopsita extends Ave {
+
+    private static final long serialVersionUID = 1L;
+
     public Calopsita(String dono, String nome, String especie, String raca, String corPena) {
         super(dono, nome, especie, raca, corPena);
     }

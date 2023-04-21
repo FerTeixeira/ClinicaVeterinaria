@@ -1,5 +1,13 @@
 import javax.swing.*;
 import java.util.ArrayList;
+import java.io.EOFException;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.ObjectInputStream;
+import java.io.OutputStream;
+import java.io.FileOutputStream;
+import java.io.FileInputStream;
 
 public class ClinicaVeterinaria {
 
@@ -61,6 +69,64 @@ public class ClinicaVeterinaria {
     public void limparLista() {
         animais.clear();
     }
+
+    public void gravarAnimal() {
+        ObjectOutputStream outputStream = null;
+        try {
+            outputStream = new ObjectOutputStream (new FileOutputStream(".\\animais.dat"));
+            for(Animal pet:animais) {
+                outputStream.writeObject(pet);
+            }
+        } catch (FileNotFoundException ex) { // arquivo não encontrado
+            ex.printStackTrace(); //escreve o erro no console
+        } catch (IOException ex) { // busca falhas nas operações de I/O
+            ex.printStackTrace(); //escreve o erro no console
+        } finally {
+            try {
+                if (outputStream != null) { // verifica se existem dados para gravar
+                    outputStream.flush(); /* libera o fluxo de saída e força byte de saíde armazenado em buffer a ser gravado */
+                    outputStream.close(); /* fecha o fluxo de saída e libera os recursos associados ao fluxo */
+                }
+            } catch (IOException ex ) { // busca falhas nas operações de I/O
+                ex.printStackTrace(); //escreve o erro no console
+            }
+        }
+    }
+
+    public void recuperarAnimal() {
+        ObjectInputStream inputStream = null;
+        try {
+            inputStream = new ObjectInputStream (new FileInputStream (".\\animais.dat"));
+            Object obj = null;
+            while((obj = inputStream.readObject ()) != null) { // lê do stream para o objeto
+                if (obj instanceof Cachorro) // verifica se o objeto pertence a classe
+                    this.animais.add((Cachorro)obj);
+                else if (obj instanceof Calopsita) // verifica se o objeto pertence a classe
+                    this.animais.add((Calopsita)obj);
+                else if (obj instanceof Cavalo) // verifica se o objeto pertence a classe
+                    this.animais.add((Cavalo)obj);
+                else if (obj instanceof Papagaio) // verifica se o objeto pertence a classe
+                    this.animais.add((Papagaio)obj);
+            }
+        } catch (EOFException ex) { // quando o final do arquivo é encontrado
+			System.out.println ("Fim do arquivo encontrado."); //escreve o erro no console
+		} catch (ClassNotFoundException ex) { // classe não encontrada
+			ex.printStackTrace(); //escreve o erro no console
+		} catch (FileNotFoundException ex) { // arquivo não encontrado
+			ex.printStackTrace(); //escreve o erro no console
+		} catch (IOException ex) { // busca falhas nas operações de I/O
+			ex.printStackTrace(); //escreve o erro no console
+		} finally {
+			try {
+				if (inputStream != null ) { // o objeto está apontando para algum stream
+					inputStream.close(); // fecha o stream
+					System.out.println("Animais recuperados com sucesso!\n");
+				}
+			} catch (IOException ex) { // busca falhas nas operações de I/O novamente
+				ex.printStackTrace(); //escreve o erro no console
+			}
+		}
+	}
 
     /**
      * Pega todos os animais cadastrados

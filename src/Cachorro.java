@@ -1,5 +1,6 @@
 public final class Cachorro extends Mamifero {
 
+    private static final long serialVersionUID = 1L;
 
     public Cachorro(String dono, String nome, String especie, String raca, String corPelo) {
         super(dono, nome, especie, raca, corPelo);

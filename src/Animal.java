@@ -1,4 +1,9 @@
-public abstract class Animal implements Pet  {
+import java.io.Serializable;
+
+public abstract class Animal implements Serializable, Pet {
+
+    private static final long serialVersionUID = 1L;
+
     private String dono;
     private String nome;
     private String especie;
