@@ -1,13 +1,23 @@
 import javax.swing.*;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
-public class Main {
+public class ClinicaVeterinaria {
 
     private ArrayList<Animal> animais;
+    public static void teste(){
+        Calopsita c1 = new Calopsita("Fer", "Gina", "Ave", "Calopsita", "Branca");
+        String msg = c1.toString();
+        System.out.println(c1);
+        c1.locomover();
+        c1.alimentar();
+        c1.emitirSom();
+        c1.cuidadosProprios();
 
-    public Main() {
+    }
+
+
+
+    public ClinicaVeterinaria() {
         this.animais = new ArrayList<Animal>();
     }
 
@@ -310,9 +320,14 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        Main pet = new Main();
+        ClinicaVeterinaria pet = new ClinicaVeterinaria();
+
+        teste();
+
 
         pet.listarMenu();
 
+
     }
+
 }

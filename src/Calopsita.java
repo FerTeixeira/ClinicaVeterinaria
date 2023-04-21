@@ -1,4 +1,4 @@
-public class Calopsita extends Ave {
+public final class Calopsita extends Ave {
     public Calopsita(String dono, String nome, String especie, String raca, String corPena) {
         super(dono, nome, especie, raca, corPena);
     }
@@ -27,13 +27,6 @@ public class Calopsita extends Ave {
         System.out.println("Esta na gaiola cantando");
     }
 
-    @Override
-    public String toString() {
-        return "\n---- Calopsita -----" +
-                "\ndono -> " + dono +
-                "\nnome -> " + nome +
-                "\nespecie -> " + especie +
-                "\nraça -> " + raca +
-                "\ncor das penas -> " + corPena;
-    }
+
 }
+

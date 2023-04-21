@@ -14,4 +14,14 @@ public abstract class Ave extends Animal {
         this.corPena = corPena;
     }
 
+    @Override
+    public String toString() {
+        return "\n---- Ave -----" +
+                "\ndono -> " + this.getDono() +
+                "\nnome -> " + this.getNome() +
+                "\nespecie -> " + this.getEspecie() +
+                "\nraça -> " + this.getRaca() +
+                "\ncor do pelo -> " + corPena;
+
+    }
 }

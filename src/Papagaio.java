@@ -1,4 +1,4 @@
-public class Papagaio extends Ave {
+public final class Papagaio extends Ave {
     public Papagaio(String dono, String nome, String especie, String raca, String corPena) {
         super(dono, nome, especie, raca, corPena);
     }
@@ -26,13 +26,4 @@ public class Papagaio extends Ave {
         System.out.println("Interagindo contando piada.");
     }
 
-    @Override
-    public String toString() {
-        return "\n---- Papagaio -----" +
-                "\ndono -> " + dono +
-                "\nnome -> " + nome +
-                "\nespecie -> " + especie +
-                "\nraça -> " + raca +
-                "\ncor das penas -> " + corPena;
-    }
 }

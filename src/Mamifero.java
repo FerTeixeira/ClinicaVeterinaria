@@ -16,5 +16,15 @@ public abstract class Mamifero extends Animal {
         this.corPelo = corPelo;
     }
 
+    @Override
+    public String toString() {
+        return "\n---- Mamífero -----" +
+                "\ndono -> " + this.getDono() +
+                "\nnome -> " + this.getNome() +
+                "\nespecie -> " + this.getEspecie() +
+                "\nraça -> " + this.getRaca() +
+                "\ncor do pelo -> " + corPelo;
 
+
+    }
 }

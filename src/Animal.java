@@ -1,8 +1,8 @@
 public abstract class Animal implements Pet  {
-    protected String dono;
-    protected String nome;
-    protected String especie;
-    protected String raca;
+    private String dono;
+    private String nome;
+    private String especie;
+    private String raca;
 
     public Animal(String dono, String nome, String especie, String raca) {
         this.dono = dono;
@@ -42,4 +42,5 @@ public abstract class Animal implements Pet  {
     public void setRaca(String raca) {
         this.raca = raca;
     }
+
 }
