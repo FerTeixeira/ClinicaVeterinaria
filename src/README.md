@@ -2,6 +2,6 @@
 Clínica Veterinária
 
 ## Alunos
-*Fernanda Teixeira de Andrade
-*Vitória
-*Nathan
+*Fernanda Teixeira de Andrade.
+*Nathan de Oliveira de Melo.
+*Vitoria Lelis Kotowski da Cunha.
