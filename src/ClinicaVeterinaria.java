@@ -5,25 +5,25 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.ObjectInputStream;
-import java.io.OutputStream;
 import java.io.FileOutputStream;
 import java.io.FileInputStream;
 
 public class ClinicaVeterinaria {
 
     private ArrayList<Animal> animais;
-    public static void teste(){
+
+    public static void teste() {
+        System.out.println("---------Teste da aplicação---------");
         Calopsita c1 = new Calopsita("Fer", "Gina", "Ave", "Calopsita", "Branca");
         String msg = c1.toString();
-        System.out.println(c1);
+        System.out.println(msg);
         c1.locomover();
         c1.alimentar();
         c1.emitirSom();
         c1.cuidadosProprios();
+        System.out.println("------------------");
 
     }
-
-
 
     public ClinicaVeterinaria() {
         this.animais = new ArrayList<Animal>();
@@ -70,13 +70,18 @@ public class ClinicaVeterinaria {
         animais.clear();
     }
 
-    public void gravarAnimal() {
+    /**
+     * Realiza a gravação de dados no arquivo.
+     */
+    public void gravarAnimal(ArrayList<Animal> cadastrados) {
         ObjectOutputStream outputStream = null;
+
         try {
-            outputStream = new ObjectOutputStream (new FileOutputStream(".\\animais.dat"));
-            for(Animal pet:animais) {
+            outputStream = new ObjectOutputStream(new FileOutputStream(".\\animais.dat"));
+            for (Animal pet : cadastrados) {
                 outputStream.writeObject(pet);
             }
+            System.out.println("Gravado!");
         } catch (FileNotFoundException ex) { // arquivo não encontrado
             ex.printStackTrace(); //escreve o erro no console
         } catch (IOException ex) { // busca falhas nas operações de I/O
@@ -87,46 +92,52 @@ public class ClinicaVeterinaria {
                     outputStream.flush(); /* libera o fluxo de saída e força byte de saíde armazenado em buffer a ser gravado */
                     outputStream.close(); /* fecha o fluxo de saída e libera os recursos associados ao fluxo */
                 }
-            } catch (IOException ex ) { // busca falhas nas operações de I/O
+            } catch (IOException ex) { // busca falhas nas operações de I/O
                 ex.printStackTrace(); //escreve o erro no console
             }
         }
     }
 
+    /**
+     * Recupera dados do arquivo
+     */
     public void recuperarAnimal() {
         ObjectInputStream inputStream = null;
+
         try {
-            inputStream = new ObjectInputStream (new FileInputStream (".\\animais.dat"));
+            inputStream = new ObjectInputStream(new FileInputStream(".\\animais.dat"));
             Object obj = null;
-            while((obj = inputStream.readObject ()) != null) { // lê do stream para o objeto
-                if (obj instanceof Cachorro) // verifica se o objeto pertence a classe
-                    this.animais.add((Cachorro)obj);
-                else if (obj instanceof Calopsita) // verifica se o objeto pertence a classe
-                    this.animais.add((Calopsita)obj);
-                else if (obj instanceof Cavalo) // verifica se o objeto pertence a classe
-                    this.animais.add((Cavalo)obj);
-                else if (obj instanceof Papagaio) // verifica se o objeto pertence a classe
-                    this.animais.add((Papagaio)obj);
+
+            while ((obj = inputStream.readObject()) != null) { // lê do stream para o objeto
+
+                if (obj instanceof Cachorro) { // verifica se o objeto pertence a classe
+                    this.animais.add((Cachorro) obj);
+                } else if (obj instanceof Calopsita) { // verifica se o objeto pertence a classe
+                    this.animais.add((Calopsita) obj);
+                } else if (obj instanceof Cavalo) { // verifica se o objeto pertence a classe
+                    this.animais.add((Cavalo) obj);
+                } else if (obj instanceof Papagaio) { // verifica se o objeto pertence a classe
+                    this.animais.add((Papagaio) obj);
+                }
             }
         } catch (EOFException ex) { // quando o final do arquivo é encontrado
-			System.out.println ("Fim do arquivo encontrado."); //escreve o erro no console
-		} catch (ClassNotFoundException ex) { // classe não encontrada
-			ex.printStackTrace(); //escreve o erro no console
-		} catch (FileNotFoundException ex) { // arquivo não encontrado
-			ex.printStackTrace(); //escreve o erro no console
-		} catch (IOException ex) { // busca falhas nas operações de I/O
-			ex.printStackTrace(); //escreve o erro no console
-		} finally {
-			try {
-				if (inputStream != null ) { // o objeto está apontando para algum stream
-					inputStream.close(); // fecha o stream
-					System.out.println("Animais recuperados com sucesso!\n");
-				}
-			} catch (IOException ex) { // busca falhas nas operações de I/O novamente
-				ex.printStackTrace(); //escreve o erro no console
-			}
-		}
-	}
+            System.out.println("Fim do arquivo encontrado.");
+        } catch (ClassNotFoundException ex) { // classe não encontrada
+            ex.printStackTrace();
+        } catch (FileNotFoundException ex) { // arquivo não encontrado
+            ex.printStackTrace();
+        } catch (IOException ex) { // busca falhas nas operações de I/O
+            ex.printStackTrace();
+        } finally {
+            try {
+                if (inputStream != null) { // o objeto está apontando para algum stream
+                    inputStream.close(); // fecha o stream
+                }
+            } catch (IOException ex) { // busca falhas nas operações de I/O novamente
+                ex.printStackTrace(); //escreve o erro no console
+            }
+        }
+    }
 
     /**
      * Pega todos os animais cadastrados
@@ -158,6 +169,10 @@ public class ClinicaVeterinaria {
      */
     public int retornaInteiro(String valor) {
 
+        if (valor == null) {
+            return -1;
+        }
+
         while (!isValidInt(valor)) {
             valor = JOptionPane.showInputDialog("Valor informado inválido!" +
                     "\nInsira uma opção:");
@@ -179,7 +194,7 @@ public class ClinicaVeterinaria {
 
         String menu; // Menu que será exibido na interface
         String entrada; // Variavel que armazenará o valor informado pelo usuário
-        int opc1, opc2, opc3; // opc1 = Primeira decisão | opc2 = Decisão secundária (tipo do animal) | opc3 = Nome do animal
+        int opc1, opc2 = 0, opc3 = 0; // opc1 = Primeira decisão | opc2 = Decisão secundária (tipo do animal) | opc3 = Nome do animal
 
         do {
             menu = """
@@ -191,9 +206,10 @@ public class ClinicaVeterinaria {
                     2 - Listar Animais
                     3 - excluir Animal
                     4 - Limpar lista
+                    5 - Gravar lista
+                    6 - Recuperar lista
                     9 - Finalizar
-
-                    
+                                 
                     """;
 
             entrada = JOptionPane.showInputDialog(menu + "\n");
@@ -209,7 +225,7 @@ public class ClinicaVeterinaria {
                             1. Mamífero
                             2. Ave
                                                                                     
-                            
+                                                        
                             """;
 
                     entrada = JOptionPane.showInputDialog(menu);
@@ -226,7 +242,7 @@ public class ClinicaVeterinaria {
                                     1. Cachorro
                                     2. Cavalo
                                                                         
-                                    
+                                                                        
                                     """;
                             entrada = JOptionPane.showInputDialog(menu + "\n");
                             opc3 = retornaInteiro(entrada);
@@ -236,7 +252,7 @@ public class ClinicaVeterinaria {
 
                                 // cachorro
                                 case 1:
-                                    dono = JOptionPane.showInputDialog("Insira o nome do dono do cachorro:\n");
+                                    dono = JOptionPane.showInputDialog("Insira o nome do dono:\n");
                                     nome = JOptionPane.showInputDialog("Insira um nome para do cachorro:\n");
                                     especie = "mamífero";
                                     raca = JOptionPane.showInputDialog("Insira a raça do " + nome + ":\n");
@@ -250,7 +266,7 @@ public class ClinicaVeterinaria {
                                     break;
                                 // cavalo
                                 case 2:
-                                    dono = JOptionPane.showInputDialog("Insira o nome do dono do cavalo:\n");
+                                    dono = JOptionPane.showInputDialog("Insira o nome do dono:\n");
                                     nome = JOptionPane.showInputDialog("Insira um nome para o cavalo:\n");
                                     especie = "mamífero";
                                     raca = JOptionPane.showInputDialog("Insira a raça do " + nome + ":\n");
@@ -262,6 +278,11 @@ public class ClinicaVeterinaria {
 
                                     JOptionPane.showMessageDialog(null, "Cavalo inserido com sucesso!");
                                     break;
+                                // cancel ou close
+                                case -1:
+                                    JOptionPane.showMessageDialog(null, "Fim do APP");
+                                    break;
+                                // outro
                                 default:
                                     JOptionPane.showMessageDialog(null, "Opção inválida!");
                             }
@@ -275,7 +296,7 @@ public class ClinicaVeterinaria {
                                     1. Calopsita
                                     2. Papagaio
                                                                         
-                                    
+                                                                        
                                     """;
                             entrada = JOptionPane.showInputDialog(menu + "\n");
                             opc3 = retornaInteiro(entrada);
@@ -285,7 +306,7 @@ public class ClinicaVeterinaria {
 
                                 // calopsita
                                 case 1:
-                                    dono = JOptionPane.showInputDialog("Insira o nome do dono da Calopsita:\n");
+                                    dono = JOptionPane.showInputDialog("Insira o nome do dono:\n");
                                     nome = JOptionPane.showInputDialog("Insira um nome para a Calopsita:\n");
                                     especie = "ave";
                                     raca = JOptionPane.showInputDialog("Insira a raça da " + nome + ":\n");
@@ -300,7 +321,7 @@ public class ClinicaVeterinaria {
 
                                 // papagaio
                                 case 2:
-                                    dono = JOptionPane.showInputDialog("Insira o nome do dono do Papagaio:\n");
+                                    dono = JOptionPane.showInputDialog("Insira o nome do dono:\n");
                                     nome = JOptionPane.showInputDialog("Insira um nome para o Papagaio:\n");
                                     especie = "ave";
                                     raca = JOptionPane.showInputDialog("Insira a raça do " + nome + ":\n");
@@ -312,10 +333,21 @@ public class ClinicaVeterinaria {
 
                                     JOptionPane.showMessageDialog(null, "Papagaio inserido com sucesso!");
                                     break;
+
+                                // cancel ou close
+                                case -1:
+                                    JOptionPane.showMessageDialog(null, "Fim do APP");
+                                    break;
+                                // outro
                                 default:
                                     JOptionPane.showMessageDialog(null, "Opção inválida!");
                             }
                             break;
+                        // cancel ou close
+                        case -1:
+                            JOptionPane.showMessageDialog(null, "Fim do APP");
+                            break;
+                        // outro
                         default:
                             JOptionPane.showMessageDialog(null, "Opção inválida!");
                     }
@@ -355,7 +387,10 @@ public class ClinicaVeterinaria {
 
                     opc2 = retornaInteiro(entrada);
 
-                    if (animais.indexOf(opc2 - 1) == -1) {
+                    if (opc2 == -1) {
+                        JOptionPane.showMessageDialog(null, "Fim do App!");
+                        break;
+                    } else if (animais.indexOf(opc2 - 1) == -1) {
                         JOptionPane.showMessageDialog(null, "O número informado é inválido!\nRefaça o processo!");
                         break;
                     }
@@ -375,13 +410,44 @@ public class ClinicaVeterinaria {
                     limparLista();
                     JOptionPane.showMessageDialog(null, "Lista limpa com sucesso!");
                     break;
+                // gravar
+                case 5:
+                    if (animais.size() == 0) {
+                        JOptionPane.showMessageDialog(null, "Nenhum animal cadastrado para ser gravado!");
+                        break;
+                    }
+
+                    gravarAnimal(animais);
+                    JOptionPane.showMessageDialog(null, "Animais gravados com sucesso!");
+
+                    break;
+
+                // recuperar
+                case 6:
+                    int before = animais.size();
+                    recuperarAnimal();
+                    int after = animais.size();
+
+                    if (before != after) {
+                        JOptionPane.showMessageDialog(null, after - before + " animais recuperados!");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Nenhum animal a ser recuperado!");
+                    }
+                    break;
+
+                // finalizar
                 case 9:
                     JOptionPane.showMessageDialog(null, "FIM DO APP");
                     break;
+                // cancel ou close
+                case -1:
+                    JOptionPane.showMessageDialog(null, "Fim do APP");
+                    break;
+                // outro
                 default:
                     JOptionPane.showMessageDialog(null, "Opção inválida!");
             }
-        } while (opc1 != 9);
+        } while (opc1 != 9 && opc1 != -1 && opc2 != -1 && opc3 != -1);
 
     }
 
@@ -389,7 +455,6 @@ public class ClinicaVeterinaria {
         ClinicaVeterinaria pet = new ClinicaVeterinaria();
 
         teste();
-
 
         pet.listarMenu();
 

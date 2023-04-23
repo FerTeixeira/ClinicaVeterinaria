@@ -26,7 +26,6 @@ public final class Calopsita extends Ave {
 
     @Override
     public void cuidadosProprios() {
-
         System.out.println("Esta na gaiola cantando");
     }
 
